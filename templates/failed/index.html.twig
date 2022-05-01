@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FailedController!{% endblock %}
+
+{% block body %}
+
+    <h1>Gérer les messages</h1>
+
+    {% for message in app.flashes('success') %}
+      
+        {{ message }}
+      
+    {% endfor %}
+
+    {% if messages|length > 0 %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Namespace</th>
+                    <th>Newsletter</th>
+                    <th>User</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in messages %}
+
+                    <tr>
+                        <td>{{message.id}}</td>
+                        <td>{{message.title}}</td>
+                        <td>{{message.message.message}}</td>
+                        <td>{{message.message.userId}}</td>
+                        <td>
+                            <a href="{{ path('app_failed_resend', {id: message.id}) }}">Renvoyer</a>
+                            <a href="{{ path('app_failed_remove', {id: message.id}) }}">Supprimer</a>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <h2>No data found !</h2>
+    {% endif %}
+
+
+{% endblock %}
